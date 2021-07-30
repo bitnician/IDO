@@ -105,7 +105,7 @@ contract IDO is ReentrancyGuard {
     }
 
     modifier isEtherPaymentMethod() {
-        require(payInEther, "you should pay in Ether");
+        require(payInEther, "ether payment has not been activate");
         _;
     }
 
@@ -229,7 +229,7 @@ contract IDO is ReentrancyGuard {
     function withdrawNotSoldTokens() external onlyOwner {
         require(
             block.timestamp > finishTimestamp,
-            "Withdraw allowed after stop accept ETH"
+            "Withdraw allowed after finish timestamp"
         );
         uint256 balance = rewardToken.balanceOf(address(this));
         rewardToken.safeTransfer(
